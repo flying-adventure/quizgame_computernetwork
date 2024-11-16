@@ -6,7 +6,7 @@ public class QuizClient {
 
     private static final String CONFIG_FILE = "server_info.dat";
     private static final String DEFAULT_SERVER_IP = "localhost";
-    private static final int DEFAULT_SERVER_PORT = 1234;
+    private static final int DEFAULT_SERVER_PORT = 1235;
 
     public static void main(String[] args) {
         // configuration이 있는지 확인하고 있으면 IP, Port 주소 사용, 없으면 default 값 사용하기
@@ -67,10 +67,10 @@ public class QuizClient {
 
             System.out.println("Connection closed.");
 
-        } catch (UnknownHostException e) {
-            System.err.println("Error: Unknown host " + serverIp);
+        } catch (UnknownHostException e) { //예외처리
+            System.err.println("Error: Unknown host " + serverIp); 
         } catch (IOException e) {
-            System.err.println("Error: Unable to connect to the server. Please check your network connection or server settings.");
+            System.err.println("Error: Unable to connect to the server. Please check your network connection or server settings."); 
             e.printStackTrace(); // 추가적인 디버깅을 위한 stack trace 출력
         } finally {
             // 리소스 정리 (socket, BufferedReader, PrintWriter 등)

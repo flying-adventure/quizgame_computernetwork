@@ -3,7 +3,7 @@ import java.net.*;
 import java.util.*;
 
 public class QuizServer {
-    private static final int PORT = 1234;
+    private static final int PORT = 1235;
 
     // 퀴즈의 문제, 답 설정
     private static final List<String[]> QUESTIONS = Arrays.asList(
@@ -21,13 +21,13 @@ public class QuizServer {
                     Socket clientSocket = serverSocket.accept();
                     System.out.println("Client connected: " + clientSocket.getInetAddress());
 
-                    // Client 요청에 대해 처리
+                    // Client 예외 처리
                     handleClient(clientSocket);
                 } catch (IOException e) {
                     System.err.println("Error accepting client connection: " + e.getMessage());
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException e) { //예외처리
             System.err.println("Error starting the server: " + e.getMessage());
         }
     }
