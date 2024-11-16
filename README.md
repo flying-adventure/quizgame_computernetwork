@@ -8,4 +8,7 @@
 ---
 ## 실행화면 
 
+![image](https://github.com/user-attachments/assets/23dc8937-6fec-483c-81cd-e55ec6a01c6c)
+
+
 ![image](https://github.com/user-attachments/assets/7ef10f6d-3034-4d86-9599-87ebdcc558b7)
