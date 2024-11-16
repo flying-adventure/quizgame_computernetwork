@@ -14,7 +14,7 @@ public class QuizClient {
         int serverPort = DEFAULT_SERVER_PORT;       // 서버 Port를 default serverPort 설정
 
         // configuration file 있는지 확인하기
-        File configFile = new File(CONFIG_FILE);        
+        File configFile = new File(CONFIG_FILE);
         if (configFile.exists()) {
             // 있으면 서버IP, Port 불러오기
             try (FileReader reader = new FileReader(configFile)) {
@@ -23,16 +23,16 @@ public class QuizClient {
 
                 serverIp = props.getProperty("SERVER_IP", DEFAULT_SERVER_IP);
                 serverPort = Integer.parseInt(props.getProperty("SERVER_PORT", String.valueOf(DEFAULT_SERVER_PORT)));
-            } catch (IOException | NumberFormatException e) {
+            } catch (IOException e) {
                 System.out.println("Error reading configuration file. Using default values.");
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid port number in configuration file. Using default values.");
             }
-            // 없으면 파일이 없다 말하고, default Ip, Port 사용하기
         } else {
             System.out.println("Configuration file not found. Using default values.");
         }
 
         System.out.println("Connecting to server at " + serverIp + ":" + serverPort);
-
 
         BufferedReader in = null;
         BufferedReader console = null;
@@ -66,8 +66,22 @@ public class QuizClient {
             }
 
             System.out.println("Connection closed.");
+
+        } catch (UnknownHostException e) {
+            System.err.println("Error: Unknown host " + serverIp);
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Error: Unable to connect to the server. Please check your network connection or server settings.");
+            e.printStackTrace(); // 추가적인 디버깅을 위한 stack trace 출력
+        } finally {
+            // 리소스 정리 (socket, BufferedReader, PrintWriter 등)
+            try {
+                if (in != null) in.close();
+                if (console != null) console.close();
+                if (out != null) out.close();
+                if (socket != null && !socket.isClosed()) socket.close();
+            } catch (IOException e) {
+                System.err.println("Error closing resources: " + e.getMessage());
+            }
         }
     }
 }
